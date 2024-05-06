@@ -19,14 +19,13 @@ import (
 	"strings"
 )
 
-
 // PetsApiService PetsApi service
 type PetsApiService service
 
 type ApiCreatePetsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PetsApiService
-	pet *Pet
+	pet        *Pet
 }
 
 func (r ApiCreatePetsRequest) Pet(pet Pet) ApiCreatePetsRequest {
@@ -41,22 +40,22 @@ func (r ApiCreatePetsRequest) Execute() (*http.Response, error) {
 /*
 CreatePets Create a pet
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiCreatePetsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiCreatePetsRequest
 */
 func (a *PetsApiService) CreatePets(ctx context.Context) ApiCreatePetsRequest {
 	return ApiCreatePetsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
 func (a *PetsApiService) CreatePetsExecute(r ApiCreatePetsRequest) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PetsApiService.CreatePets")
@@ -114,14 +113,14 @@ func (a *PetsApiService) CreatePetsExecute(r ApiCreatePetsRequest) (*http.Respon
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarHTTPResponse, newErr
 	}
 
@@ -129,9 +128,9 @@ func (a *PetsApiService) CreatePetsExecute(r ApiCreatePetsRequest) (*http.Respon
 }
 
 type ApiListPetsRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PetsApiService
-	limit *int32
+	limit      *int32
 }
 
 // How many items to return at one time (max 100)
@@ -147,24 +146,25 @@ func (r ApiListPetsRequest) Execute() ([]Pet, *http.Response, error) {
 /*
 ListPets List all pets
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return ApiListPetsRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@return ApiListPetsRequest
 */
 func (a *PetsApiService) ListPets(ctx context.Context) ApiListPetsRequest {
 	return ApiListPetsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return []Pet
+//
+//	@return []Pet
 func (a *PetsApiService) ListPetsExecute(r ApiListPetsRequest) ([]Pet, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Pet
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Pet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PetsApiService.ListPets")
@@ -220,14 +220,14 @@ func (a *PetsApiService) ListPetsExecute(r ApiListPetsRequest) ([]Pet, *http.Res
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
@@ -244,9 +244,9 @@ func (a *PetsApiService) ListPetsExecute(r ApiListPetsRequest) ([]Pet, *http.Res
 }
 
 type ApiShowPetByIdRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService *PetsApiService
-	petId string
+	petId      string
 }
 
 func (r ApiShowPetByIdRequest) Execute() (*Pet, *http.Response, error) {
@@ -256,26 +256,27 @@ func (r ApiShowPetByIdRequest) Execute() (*Pet, *http.Response, error) {
 /*
 ShowPetById Info for a specific pet
 
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param petId The id of the pet to retrieve
- @return ApiShowPetByIdRequest
+	@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+	@param petId The id of the pet to retrieve
+	@return ApiShowPetByIdRequest
 */
 func (a *PetsApiService) ShowPetById(ctx context.Context, petId string) ApiShowPetByIdRequest {
 	return ApiShowPetByIdRequest{
 		ApiService: a,
-		ctx: ctx,
-		petId: petId,
+		ctx:        ctx,
+		petId:      petId,
 	}
 }
 
 // Execute executes the request
-//  @return Pet
+//
+//	@return Pet
 func (a *PetsApiService) ShowPetByIdExecute(r ApiShowPetByIdRequest) (*Pet, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Pet
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Pet
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PetsApiService.ShowPetById")
@@ -329,14 +330,14 @@ func (a *PetsApiService) ShowPetByIdExecute(r ApiShowPetByIdRequest) (*Pet, *htt
 			body:  localVarBody,
 			error: localVarHTTPResponse.Status,
 		}
-			var v Error
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-					newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-					newErr.model = v
+		var v Error
+		err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		if err != nil {
+			newErr.error = err.Error()
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+		newErr.model = v
 		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 

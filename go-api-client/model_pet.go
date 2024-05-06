@@ -11,7 +11,9 @@ API version: 1.0.0
 package openapi
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the Pet type satisfies the MappedNullable interface at compile time
@@ -19,9 +21,9 @@ var _ MappedNullable = &Pet{}
 
 // Pet struct for Pet
 type Pet struct {
-	Id int64 `json:"id"`
-	Name string `json:"name"`
-	Tag *string `json:"tag,omitempty"`
+	Id   int64   `json:"id"`
+	Name string  `json:"name"`
+	Tag  *string `json:"tag,omitempty"`
 }
 
 type _Pet Pet
@@ -149,10 +151,10 @@ func (o *Pet) UnmarshalJSON(data []byte) (err error) {
 	err = json.Unmarshal(data, &allProperties)
 
 	if err != nil {
-		return err;
+		return err
 	}
 
-	for _, requiredProperty := range(requiredProperties) {
+	for _, requiredProperty := range requiredProperties {
 		if _, exists := allProperties[requiredProperty]; !exists {
 			return fmt.Errorf("no value given for required property %v", requiredProperty)
 		}
@@ -208,5 +210,3 @@ func (v *NullablePet) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
